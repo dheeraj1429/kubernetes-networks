@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-api-app
+  labels:
+    app: service-1-app
+    type: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-1-app
+      type: server
+  template:
+    metadata:
+      labels:
+        app: service-1-app
+        type: server
+    spec:
+      containers:
+        - name: service-1-app
+          image: dheeraj1429/network-service-1:v1
+          env:
+            - name: TOKEN_SERVER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: TOKEN_SERVER_URL
+          # resources:
+          #   limits:
+          #     memory: 512Mi
+          #     cpu: "1"
+          #   requests:
+          #     memory: 256Mi
+          #     cpu: "0.2"

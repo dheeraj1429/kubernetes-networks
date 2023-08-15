@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: token-api-service
+  labels:
+    type: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: token-api-service
+      type: server
+  template:
+    metadata:
+      labels:
+        app: token-api-service
+        type: server
+    spec:
+      containers:
+        - name: token-api-service
+          image: dheeraj1429/network-service-2
+          imagePullPolicy: Always
+          # resources:
+          #   limits:
+          #     memory: 512Gi
+          #     cpu: "1"
+          #   requests:
+          #     memory: 256Gi
+          #     cpu: "0.2"

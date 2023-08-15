@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  service_1:
+    build:
+      context: "./service_1"
+      dockerfile: Dockerfile
+    ports:
+      - "6000:6000"
+    env_file:
+      - "./service_1/.env"
+    environment:
+      - TOKEN_SERVER_URL=http://service_2:4000
+
+  service_2:
+    build:
+      context: "./service_2"
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - "./service_2/.env"
+    depends_on:
+      - service_1
